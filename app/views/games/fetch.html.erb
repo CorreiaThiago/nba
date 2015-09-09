@@ -1,0 +1,17 @@
+
+We are getting the games
+Search Date: <%= @date %>
+<br>
+<%= @parsing.length %>
+<br>
+<% @parsing[0]["rowSet"].each do |x| %>
+  <p>
+    <%= "Game ID #{x[2]}, Home Team: #{x[6]}, Away Team: #{x[7]}" %>
+  </p>
+<% end %>
+
+<% @parsing[1]["rowSet"].each do |x| %>
+  <p>
+    <%= "Game ID #{x[2]}, Team: #{x[3]}/#{x[4]} scored #{x[21]} points" %>
+  </p>
+<% end %>

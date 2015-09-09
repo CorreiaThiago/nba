@@ -1,0 +1,6 @@
+<h1>Games#index</h1>
+<p>Find me in app/views/games/index.html.erb</p>
+<%= form_tag("games/fetch", method: "get" ) do %>
+  <%= select_date Date.today, prefix: :game_date %>
+  <%= submit_tag("Get Games") %>
+<% end %>
