@@ -1,17 +1,24 @@
-
+a
 We are getting the games
 Search Date: <%= @date %>
 <br>
 <%= @parsing.length %>
 <br>
-<% @parsing[0]["rowSet"].each do |x| %>
-  <p>
-    <%= "Game ID #{x[2]}, Home Team: #{x[6]}, Away Team: #{x[7]}" %>
-  </p>
-<% end %>
+<% if @parsing[0]["rowSet"].length > 0 %>
+	<p>
+		<%= pluralize(@parsing[0]["rowSet"].length, "game") %> on this date
+	</p>
+	<% @parsing[0]["rowSet"].each do |x| %>
+	  <p>
+	    <%= "Game ID #{x[2]} on #{x[0].to_date}: Home Team: #{x[6]}, Away Team: #{x[7]}" %>
+	  </p>
+	<% end %>
 
-<% @parsing[1]["rowSet"].each do |x| %>
-  <p>
-    <%= "Game ID #{x[2]}, Team: #{x[3]}/#{x[4]} scored #{x[21]} points" %>
-  </p>
+	<% @parsing[1]["rowSet"].each do |x| %>
+	  <p>
+	    <%= "Game ID #{x[2]}, Team: #{x[3]}/#{x[4]} scored #{x[21]} points" %>
+	  </p>
+	<% end %>
+<% else %>
+	<h1>There were no games on the selected date</h1>
 <% end %>

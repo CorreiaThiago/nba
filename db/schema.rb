@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150906211117) do
+ActiveRecord::Schema.define(version: 20150912235527) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -21,11 +21,24 @@ ActiveRecord::Schema.define(version: 20150906211117) do
   end
 
   create_table "games", force: :cascade do |t|
-    t.integer  "nbacomid"
-    t.datetime "gamedate"
+    t.string   "nbacomid"
+    t.date     "gamedate"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "game_id"
+    t.integer  "team_id"
+    t.string   "homeaway"
+    t.string   "winloss"
+    t.integer  "points"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "participants", ["game_id"], name: "index_participants_on_game_id"
+  add_index "participants", ["team_id"], name: "index_participants_on_team_id"
 
   create_table "teams", force: :cascade do |t|
     t.text     "city"
