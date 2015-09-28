@@ -21,7 +21,11 @@ module GamesHelper
   	end
   end
 
-  def add_points(results)
+  def update_participants(results)
+    #This method will update the total points and win or loss for each game participant
+    #It accesses a different row of the JSON
+
+    #This First each adds the points to each participant from the JSON
     results[1]["rowSet"].each do |game|
       gameid = Game.find_by(nbacomid: game[2]).id
       teamid = Team.find_by(nbacomid: game[3]).id
@@ -29,15 +33,16 @@ module GamesHelper
       gameteam.update(points: game[21])
     end
 
-    games = find_games(results[0]["rowSet"].first[0].to_date)
+    games = Game.where("gamedate = ?", results[0]["rowSet"].first[0].to_date)
 
+    ##This second each determines which team was the winner or the loser of the appropriate game
     games.each do |game|
       if game.participants.first.points < game.participants.second.points
         game.participants.first.update(winloss: "L")
         game.participants.second.update(winloss: "W")
       else
         game.participants.first.update(winloss: "W")
-        game.participants.second.upate(winloss: "L")
+        game.participants.second.update(winloss: "L")
       end
     end
   end
