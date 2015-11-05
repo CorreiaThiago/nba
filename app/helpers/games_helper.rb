@@ -13,6 +13,14 @@ module GamesHelper
     boxscore["resultSets"][0]
   end
 
+  def get_player(player_id)
+    search_string = "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}"
+    player_link = URI(search_string)
+    player_info = JSON.parse(Net::HTTP.get(player_link))
+    player_info["resultSets"][0]["rowSet"][0]
+  end
+
+
   def add_games(results)
   	results[0]["rowSet"].each do |game|
   		gamedate = game[0].to_date
@@ -28,8 +36,16 @@ module GamesHelper
   	end
   end
 
+  def checkplayer(player_id)
+    unless Player.exists?(nbacomid: player_id)
+      player = get_player(player_id)
+      Player.create
+    end
+  end
+  def get_playerstats
+    #run a script to check the player
   def update_participants(results)
-    #This method will update the total points and win or loss for each game participant
+    #This method will update the total points and win or loss for each game participant, and add player data
     #It accesses a different row of the JSON
 
     #This First each adds the points to each participant from the JSON
@@ -52,6 +68,7 @@ module GamesHelper
         game.participants.second.update(winloss: "L")
       end
       get_playerstats(game)
+      #process box score here
       #run get boxscore information for players right here since you have the game id and the participants set up already?
     end
   end
