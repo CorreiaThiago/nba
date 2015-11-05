@@ -6,6 +6,13 @@ module GamesHelper
     raw_data["resultSets"]
   end
 
+  def get_playerstats(game)
+    search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0"
+    boxscore_link = URI(search_string)
+    boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
+    boxscore["resultSets"][0]
+  end
+
   def add_games(results)
   	results[0]["rowSet"].each do |game|
   		gamedate = game[0].to_date
@@ -44,6 +51,8 @@ module GamesHelper
         game.participants.first.update(winloss: "W")
         game.participants.second.update(winloss: "L")
       end
+      get_playerstats(game)
+      #run get boxscore information for players right here since you have the game id and the participants set up already?
     end
   end
 end
