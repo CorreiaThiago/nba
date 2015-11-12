@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150912235527) do
+ActiveRecord::Schema.define(version: 20151112215618) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -39,6 +39,22 @@ ActiveRecord::Schema.define(version: 20150912235527) do
 
   add_index "participants", ["game_id"], name: "index_participants_on_game_id"
   add_index "participants", ["team_id"], name: "index_participants_on_team_id"
+
+  create_table "players", force: :cascade do |t|
+    t.string   "nbacomid"
+    t.string   "fname"
+    t.string   "lname"
+    t.date     "birthdate"
+    t.string   "school"
+    t.string   "country"
+    t.integer  "height"
+    t.string   "position"
+    t.integer  "rookie_year"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "players", ["nbacomid"], name: "index_players_on_nbacomid", unique: true
 
   create_table "teams", force: :cascade do |t|
     t.text     "city"

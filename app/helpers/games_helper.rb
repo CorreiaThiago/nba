@@ -20,6 +20,11 @@ module GamesHelper
     player_info["resultSets"][0]["rowSet"][0]
   end
 
+  def get_height(player_height)
+    feet = player_height.split("-").to_i * 12
+    inches = player_height.split("-").to_i
+    feet + inches
+  end
 
   def add_games(results)
   	results[0]["rowSet"].each do |game|
@@ -38,7 +43,8 @@ module GamesHelper
 
   def checkplayer(player_id)
     unless Player.exists?(nbacomid: player_id)
-      player = get_player(player_id)
+      player_info = get_player(player_id)
+      height = get_height(player_info[10])
       Player.create
     end
   end
