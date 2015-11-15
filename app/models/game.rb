@@ -1,4 +1,48 @@
 class Game < ActiveRecord::Base
 	validates :nbacomid, uniqueness: true
 	has_many :participants
+
+  def self.get_games(date)
+    search_string = "http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}"
+    game_link = URI(search_string)
+    raw_data = JSON.parse(Net::HTTP.get(game_link))
+    games = raw_data["resultSets"]
+    add_games(games)
+  end
+
+  private
+
+  def self.add_games(results)
+    #Adds Game info the games and Participant basics to participants
+    gamedate = results[0]["rowSet"].first[0].to_date
+    results[0]["rowSet"].each do |game|
+      gameid = game[2]
+      homeid = game[6]
+      awayid = game[7]
+      Game.create(nbacomid: gameid, gamedate: gamedate)
+      game = Game.find_by(nbacomid: gameid).id
+      hometeam = Team.find_by(nbacomid: homeid).id
+      awayteam = Team.find_by(nbacomid: awayid).id
+      Participant.create(game_id: game, team_id: hometeam, homeaway: "H")
+      Participant.create(game_id: game, team_id: awayteam, homeaway: "A")
+    end
+    #Follow up with adding points totals for each participant of the game
+    results[1]["rowSet"].each do |game|
+      gameid = Game.find_by(nbacomid: game[2]).id
+      teamid = Team.find_by(nbacomid: game[3]).id
+      gameteam = Participant.find_by(game_id: gameid, team_id: teamid)
+      gameteam.update(points: game[21])
+    end
+    #Follow up points total with determining the winner of each game
+    games = Game.where("gamedate = ?", gamedate)
+    games.each do |game|
+      if game.participants.first.points < game.participants.second.points
+        game.participants.first.update(winloss: "L")
+        game.participants.second.update(winloss: "W")
+      else
+        game.participants.first.update(winloss: "W")
+        game.participants.second.update(winloss: "L")
+      end
+    end
+  end
 end
