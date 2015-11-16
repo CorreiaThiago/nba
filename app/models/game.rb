@@ -1,6 +1,8 @@
 class Game < ActiveRecord::Base
 	validates :nbacomid, uniqueness: true
 	has_many :participants
+  has_many :statistics
+  has_many :players, through: :statistics
 
   def self.get_games(date)
     search_string = "http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}"
