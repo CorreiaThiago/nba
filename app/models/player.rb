@@ -9,6 +9,7 @@ class Player < ActiveRecord::Base
     player_game_info.each do |player|
       player_id = player[4]
       checkplayer(player_id)
+      #Statistic.insert_player_stats(player)
     end
   end
 
