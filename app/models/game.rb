@@ -8,8 +8,10 @@ class Game < ActiveRecord::Base
     search_string = "http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}"
     game_link = URI(search_string)
     raw_data = JSON.parse(Net::HTTP.get(game_link))
-    games = raw_data["resultSets"]
-    add_games(games)
+    if raw_date["resultSets"][0]["rowSet"].count > 0 
+      games = raw_data["resultSets"]
+      add_games(games)
+    end
   end
 
   private

@@ -2,13 +2,13 @@ class Player < ActiveRecord::Base
   has_many :statistics
 
   def self.get_playerstats(game)
-    search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&Season=2014-15&SeasonType=Regular+Season&StartPeriod=1&StartRange=0"
+    search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
     boxscore_link = URI(search_string)
     boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
     player_game_info = boxscore["resultSets"][0]["rowSet"]
     player_game_info.each do |player|
       player_id = player[4]
-      checkplayer(player_id)
+      #checkplayer(player_id)
       #Statistic.insert_player_stats(player)
     end
   end

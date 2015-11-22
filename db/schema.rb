@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151116011625) do
+ActiveRecord::Schema.define(version: 20151121233445) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -72,7 +72,7 @@ ActiveRecord::Schema.define(version: 20151116011625) do
     t.integer  "dreb"
     t.integer  "assists"
     t.integer  "turnovers"
-    t.integer  "seals"
+    t.integer  "steals"
     t.integer  "blocks"
     t.integer  "fouls"
     t.integer  "plusminus"
