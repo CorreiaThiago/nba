@@ -1,14 +1,15 @@
 class Game < ActiveRecord::Base
 	validates :nbacomid, uniqueness: true
-	has_many :participants
-  has_many :statistics
-  has_many :players, through: :statistics
+	has_many :participants, dependent: :destroy
+  has_many :statistics, dependent: :destroy
+  has_many :players, through: :statistics, dependent: :destroy
+  
 
   def self.get_games(date)
     search_string = "http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}"
     game_link = URI(search_string)
     raw_data = JSON.parse(Net::HTTP.get(game_link))
-    if raw_date["resultSets"][0]["rowSet"].count > 0 
+    if raw_data["resultSets"][0]["rowSet"].count > 0 
       games = raw_data["resultSets"]
       add_games(games)
     end
@@ -47,6 +48,7 @@ class Game < ActiveRecord::Base
         game.participants.first.update(winloss: "W")
         game.participants.second.update(winloss: "L")
       end
+      Player.get_playerstats(game.nbacomid)
     end
   end
 end

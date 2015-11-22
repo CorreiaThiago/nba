@@ -8,26 +8,12 @@ class Player < ActiveRecord::Base
     player_game_info = boxscore["resultSets"][0]["rowSet"]
     player_game_info.each do |player|
       player_id = player[4]
-      #checkplayer(player_id)
-      #Statistic.insert_player_stats(player)
+      checkplayer(player_id)
+      Statistic.insert_player_stats(player)
     end
   end
 
   private 
-
-	  def self.get_height(player_height)
-	    feet = player_height.split("-")[0].to_i * 12
-	    inches = player_height.split("-")[1].to_i
-	    feet + inches
-	  end
-
-	  def self.get_player(player_id)
-	    search_string = "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}"
-	    player_link = URI(search_string)
-	    player_info = JSON.parse(Net::HTTP.get(player_link))
-	    player_info["resultSets"][0]["rowSet"][0]
-		end
-
 		def self.checkplayer(player_id)
 	    unless Player.exists?(nbacomid: player_id)
 	      player_info = get_player(player_id)
@@ -43,4 +29,17 @@ class Player < ActiveRecord::Base
 	      Player.create(nbacomid: nbacomid, fname: fname, lname: lname, birthdate: birthdate, school: school, country: country, height: height, position: position, rookie_year: rookie_year)
 	    end
 	  end
+
+    def self.get_height(player_height)
+      feet = player_height.split("-")[0].to_i * 12
+      inches = player_height.split("-")[1].to_i
+      feet + inches
+    end
+
+    def self.get_player(player_id)
+      search_string = "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}"
+      player_link = URI(search_string)
+      player_info = JSON.parse(Net::HTTP.get(player_link))
+      player_info["resultSets"][0]["rowSet"][0]
+    end    
 end
