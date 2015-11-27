@@ -39,4 +39,42 @@ class Statistic < ActiveRecord::Base
   	seconds = time_array[1].to_i
   	minutes + seconds
   end
+
+  def rebounds
+    oreb + dreb
+  end
+
+  def points
+    (twosmade * 2) + (threesmade * 3) + freesmade
+  end
+
+  def doubles(gamestats)
+    doubles = 0
+    gamestats.each do |statistic|
+      if statitsic > 9
+        doubles += 1
+      end
+    end
+    if doubles < 2
+      exit
+    elsif doubles == 2
+      gamesstats.doubles = 2
+    else
+      gamestats.doubles = 3
+    end
+    gamestats.save
+  end
+
+  def fanduel
+    ((twosmade+blocks+steals) *2) + (threesmade * 3) + freesmade + (rebounds * 1.2) + (assists * 1.5) - turnovers
+  end
+
+  def yahoo
+    points + (threesmade * 0.5) + (rebounds * 1.2) + (assists * 1.5) + ((steals+blocks) * 2) - turnovers 
+  end
+
+  def draftkings
+    #Need to get double and triple doubles in here
+  end
+
 end
