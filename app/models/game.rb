@@ -1,8 +1,7 @@
 class Game < ActiveRecord::Base
 	validates :nbacomid, uniqueness: true
 	has_many :participants, dependent: :destroy
-  has_many :statistics, dependent: :destroy
-  has_many :players, through: :statistics
+  has_many :teams, through: :participants
   
 
   def self.get_games(date)

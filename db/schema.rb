@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151121233445) do
+ActiveRecord::Schema.define(version: 20151127204434) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -57,8 +57,6 @@ ActiveRecord::Schema.define(version: 20151121233445) do
   add_index "players", ["nbacomid"], name: "index_players_on_nbacomid", unique: true
 
   create_table "statistics", force: :cascade do |t|
-    t.integer  "game_id"
-    t.integer  "team_id"
     t.integer  "player_id"
     t.boolean  "starter"
     t.integer  "time_played"
@@ -76,13 +74,13 @@ ActiveRecord::Schema.define(version: 20151121233445) do
     t.integer  "blocks"
     t.integer  "fouls"
     t.integer  "plusminus"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "participant_id"
   end
 
-  add_index "statistics", ["game_id"], name: "index_statistics_on_game_id"
+  add_index "statistics", ["participant_id"], name: "index_statistics_on_participant_id"
   add_index "statistics", ["player_id"], name: "index_statistics_on_player_id"
-  add_index "statistics", ["team_id"], name: "index_statistics_on_team_id"
 
   create_table "teams", force: :cascade do |t|
     t.text     "city"

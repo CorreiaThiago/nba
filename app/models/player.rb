@@ -1,5 +1,6 @@
 class Player < ActiveRecord::Base
   has_many :statistics
+  has_many :participants, through: :statistics
 
   def self.get_playerstats(game)
     search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"

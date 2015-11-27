@@ -1,13 +1,13 @@
 class Statistic < ActiveRecord::Base
   belongs_to :player
-  belongs_to :game
-  belongs_to :team
+  belongs_to :participant
 
   def self.insert_player_stats(statline)
   	player_stats = Statistic.new
-  	player_stats.game_id = Game.find_by(nbacomid: statline[0])
-  	player_stats.team_id = Team.find_by(nbacomid: statline[1])
-  	player_stats.player_id = Player.find_by(nbacomid: statline[4])
+  	game_id = Game.find_by(nbacomid: statline[0])
+  	team_id = Team.find_by(nbacomid: statline[1])
+  	player_stats.player = Player.find_by(nbacomid: statline[4])
+    player_stats.participant = Participant.find_by(game_id: game_id, team_id: team_id)
   	player_stats.starter = is_starter?(statline[6])
   	player_stats.time_played = get_seconds(statline[8])
   	player_stats.twosmade = statline[9] - statline[12]
