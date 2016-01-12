@@ -1,7 +1,6 @@
 class Statistic < ActiveRecord::Base
   belongs_to :player
   belongs_to :participant
-  belongs_to :game
 
   def self.insert_player_stats(statline)
   	player_stats = Statistic.new
