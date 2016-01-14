@@ -2,6 +2,14 @@ class Statistic < ActiveRecord::Base
   belongs_to :player
   belongs_to :participant
 
+  before_save do
+    double
+    fanduel
+    yahoo
+    draftkings
+  end
+
+
   def self.insert_player_stats(statline)
   	player_stats = Statistic.new
   	game_id = Game.find_by(nbacomid: statline[0])
@@ -27,7 +35,9 @@ class Statistic < ActiveRecord::Base
     player_stats.save
   end
 
-  private
+
+
+  protected
 
   def self.is_starter?(input)
   	!input.empty?
@@ -48,33 +58,29 @@ class Statistic < ActiveRecord::Base
     (twosmade * 2) + (threesmade * 3) + freesmade
   end
 
-  def doubles(gamestats)
-    doubles = 0
-    gamestats.each do |statistic|
-      if statitsic > 9
-        doubles += 1
-      end
-    end
-    if doubles < 2
-      exit
-    elsif doubles == 2
-      gamesstats.doubles = 2
-    else
-      gamestats.doubles = 3
-    end
-    gamestats.save
+
+  # This method should calculate the number of doubles on a stat line - it needs to be pased the user id and only relevant statistics, points, rebounds, assists, steals, blocks as they are the only things counted in doubles
+  
+  def double
+    self.doubles = [self.points, self.rebounds, self.blocks, self.assists, self.steals].find_all {|e| e >= 10 }.length
   end
 
   def fanduel
-    ((twosmade+blocks+steals) *2) + (threesmade * 3) + freesmade + (rebounds * 1.2) + (assists * 1.5) - turnovers
+    self.fd = ((twosmade+blocks+steals) *2) + (threesmade * 3) + freesmade + (rebounds * 1.2) + (assists * 1.5) - turnovers
   end
 
   def yahoo
-    points + (threesmade * 0.5) + (rebounds * 1.2) + (assists * 1.5) + ((steals+blocks) * 2) - turnovers 
+    self.yh = points + (threesmade * 0.5) + (rebounds * 1.2) + (assists * 1.5) + ((steals+blocks) * 2) - turnovers 
   end
 
   def draftkings
-    #Need to get double and triple doubles in here
+     base =  points + (threesmade * 0.5) + (rebounds * 1.25) + (assists * 1.5) + ((steals+blocks) * 2) - (turnovers * 0.5)
+    if doubles == 2
+      self.dk = base + 1.5
+    elsif doubles > 2
+      self.dk = base + 3
+    else
+      self.dk = base
+    end
   end
-
 end

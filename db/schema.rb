@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151127204434) do
+ActiveRecord::Schema.define(version: 20160114041845) do
 
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
@@ -77,6 +77,10 @@ ActiveRecord::Schema.define(version: 20151127204434) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.integer  "participant_id"
+    t.integer  "doubles"
+    t.float    "fd"
+    t.float    "dk"
+    t.float    "yh"
   end
 
   add_index "statistics", ["participant_id"], name: "index_statistics_on_participant_id"
