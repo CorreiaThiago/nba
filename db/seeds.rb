@@ -5,39 +5,93 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-Division.create(name: "Atlantic", conference: "Eastern")
-Division.create(name: "Central", conference: "Eastern")
-Division.create(name: "Southeast", conference: "Eastern")
-Division.create(name: "Northwest", conference: "Western")
-Division.create(name: "Pacific", conference: "Western")
-Division.create(name: "Southwest", conference: "Western")
-Team.create(city: "Los Angeles" , nickname: "Lakers" , abbreviation: "LAL", nbacomid: 1610612747 , division_id: 5)
-Team.create(city: "Philadelphia" , nickname: "Seventy-Sixers" , abbreviation: "PHI", nbacomid: 1610612755, division_id: 1)
-Team.create(city: "Toronto" , nickname: "Raptors" , abbreviation: "TOR", nbacomid: 1610612761, division_id: 1)
-Team.create(city: "Washington" , nickname: "Wizards" , abbreviation: "WAS", nbacomid: 1610612764, division_id: 3)
-Team.create(city: "Los Angeles" , nickname: "Clippers" , abbreviation: "LAC", nbacomid: 1610612746, division_id: 5)
-Team.create(city: "Orlando" , nickname: "Magic" , abbreviation: "ORL", nbacomid: 1610612753 , division_id: 3)
-Team.create(city: "Chicago" , nickname: "Bulls" , abbreviation: "CHI", nbacomid: 1610612741, division_id: 2 )
-Team.create(city: "Brooklyn" , nickname: "Nets" , abbreviation: "BKN", nbacomid: 1610612751, division_id: 1)
-Team.create(city: "Utah" , nickname: "Jazz" , abbreviation: "UTA", nbacomid: 1610612762, division_id: 4)
-Team.create(city: "New York" , nickname: "Knicks" , abbreviation: "NYK", nbacomid: 1610612752, division_id: 1)
-Team.create(city: "Phoenix" , nickname: "Suns" , abbreviation: "PHX", nbacomid: 1610612756, division_id: 5)
-Team.create(city: "Atlanta" , nickname: "Hawks" , abbreviation: "ATL", nbacomid: 1610612737 , division_id: 3)
-Team.create(city: "San Antonio" , nickname: "Spurs" , abbreviation: "SAS", nbacomid: 1610612759, division_id: 6)
-Team.create(city: "Memphis" , nickname: "Grizzlies" , abbreviation: "MEM", nbacomid: 1610612763, division_id: 6 )
-Team.create(city: "Sacramento" , nickname: "Kings" , abbreviation: "SAC", nbacomid: 1610612758, division_id: 5)
-Team.create(city: "New Orleans" , nickname: "Pelicans" , abbreviation: "NOP", nbacomid: 1610612740, division_id: 6 )
-Team.create(city: "Houston" , nickname: "Rockets" , abbreviation: "HOU", nbacomid: 1610612745 , division_id: 6)
-Team.create(city: "Denver" , nickname: "Nuggets" , abbreviation: "DEN", nbacomid: 1610612743, division_id: 4)
-Team.create(city: "Oklahoma City" , nickname: "Thunder" , abbreviation: "OKC", nbacomid: 1610612760, division_id: 4)
-Team.create(city: "Portland" , nickname: "Trailblazers" , abbreviation: "POR", nbacomid: 1610612757, division_id: 4)
-Team.create(city: "Cleveland" , nickname: "Cavaliers" , abbreviation: "CLE", nbacomid: 1610612739, division_id: 2)
-Team.create(city: "Indiana" , nickname: "Pacers" , abbreviation: "IND", nbacomid: 1610612754, division_id: 2)
-Team.create(city: "Golden State" , nickname: "Warriors" , abbreviation: "GSW", nbacomid: 1610612744, division_id: 5)
-Team.create(city: "Boston" , nickname: "Celtics" , abbreviation: "BOS", nbacomid: 1610612738, division_id: 1)
-Team.create(city: "Detroit" , nickname: "Pistons" , abbreviation: "DET", nbacomid: 1610612765, division_id: 2)
-Team.create(city: "Milwaukee" , nickname: "Bucks" , abbreviation: "MIL", nbacomid: 1610612749, division_id: 2)
-Team.create(city: "Minnesota" , nickname: "Timberwolves" , abbreviation: "MIN", nbacomid: 1610612750, division_id:4)
-Team.create(city: "Miami" , nickname: "Heat" , abbreviation: "MIA", nbacomid: 1610612748, division_id: 3)
-Team.create(city: "Dallas" , nickname: "Mavericks" , abbreviation: "DAL", nbacomid: 1610612742, division_id: 6)
-Team.create(city: "Charlotte" , nickname: "Hornets" , abbreviation: "CHA", nbacomid: 1610612766, division_id: 3)
+
+
+unless Division.exists?(name: "Atlantic")
+  Division.create(name: "Atlantic", conference: "Eastern")
+end
+
+unless Division.exists?(name: "Central")
+  Division.create(name: "Central", conference: "Eastern")
+end
+
+unless Division.exists?(name: "Southeast")
+  Division.create(name: "Southeast", conference: "Eastern")
+end
+
+unless Deivision.exists?(name: "Northwest")
+  Division.create(name: "Northwest", conference: "Western")
+end
+
+unless Division.exists?(name: "Pacific")
+  Division.create(name: "Pacific", conference: "Western")
+end
+
+unless Division.exists?(name: "Southwest")
+  Division.create(name: "Southwest", conference: "Western")
+end
+
+divisions = {atlantic: Division.find_by(name: "Atlantic").id
+            , central: Division.find_by(name: "Central").id
+            , southeast: Division.find_by(name: "Southeast").id
+            , pacific: Division.find_by(name: "Pacific").id 
+            , southwest: Division.find_by(name: "Southeast").id 
+            , northwest: Division.find_by(name: "Northwest").id
+}
+
+
+atlantic = [
+  {city: "Philadelphia" , nickname: "Seventy-Sixers" , abbreviation: "PHI", nbacomid: 1610612755}.
+  {city: "Toronto" , nickname: "Raptors" , abbreviation: "TOR", nbacomid: 1610612761},
+  {city: "Brooklyn" , nickname: "Nets" , abbreviation: "BKN", nbacomid: 1610612751},
+  {city: "New York" , nickname: "Knicks" , abbreviation: "NYK", nbacomid: 1610612752},
+  {city: "Boston" , nickname: "Celtics" , abbreviation: "BOS", nbacomid: 1610612738}
+]
+
+central = [ 
+  {city: "Chicago" , nickname: "Bulls" , abbreviation: "CHI", nbacomid: 1610612741},
+  {city: "Indiana" , nickname: "Pacers" , abbreviation: "IND", nbacomid: 1610612754},
+  {city: "Detroit" , nickname: "Pistons" , abbreviation: "DET", nbacomid: 1610612765},
+  {city: "Milwaukee" , nickname: "Bucks" , abbreviation: "MIL", nbacomid: 1610612749},
+  {city: "Cleveland" , nickname: "Cavaliers" , abbreviation: "CLE", nbacomid: 1610612739}
+]
+{city: "Washington" , nickname: "Wizards" , abbreviation: "WAS", nbacomid: 1610612764},
+{city: "Orlando" , nickname: "Magic" , abbreviation: "ORL", nbacomid: 1610612753 },
+{city: "Atlanta" , nickname: "Hawks" , abbreviation: "ATL", nbacomid: 1610612737 },
+{city: "Miami" , nickname: "Heat" , abbreviation: "MIA", nbacomid: 1610612748},
+{city: "Charlotte" , nickname: "Hornets" , abbreviation: "CHA", nbacomid: 1610612766}
+
+{city: "Utah" , nickname: "Jazz" , abbreviation: "UTA", nbacomid: 1610612762},
+{city: "Denver" , nickname: "Nuggets" , abbreviation: "DEN", nbacomid: 1610612743},
+{city: "Oklahoma City" , nickname: "Thunder" , abbreviation: "OKC", nbacomid: 1610612760},
+{city: "Portland" , nickname: "Trailblazers" , abbreviation: "POR", nbacomid: 1610612757},
+{city: "Minnesota" , nickname: "Timberwolves" , abbreviation: "MIN", nbacomid: 1610612750}
+
+{city: "Los Angeles" , nickname: "Lakers" , abbreviation: "LAL", nbacomid: 1610612747 },
+{city: "Phoenix" , nickname: "Suns" , abbreviation: "PHX", nbacomid: 1610612756},
+{city: "Los Angeles" , nickname: "Clippers" , abbreviation: "LAC", nbacomid: 1610612746},
+{city: "Sacramento" , nickname: "Kings" , abbreviation: "SAC", nbacomid: 1610612758},
+{city: "Golden State" , nickname: "Warriors" , abbreviation: "GSW", nbacomid: 1610612744}
+
+{city: "San Antonio" , nickname: "Spurs" , abbreviation: "SAS", nbacomid: 1610612759},
+{city: "Memphis" , nickname: "Grizzlies" , abbreviation: "MEM", nbacomid: 1610612763},
+{city: "New Orleans" , nickname: "Pelicans" , abbreviation: "NOP", nbacomid: 1610612740},
+{city: "Houston" , nickname: "Rockets" , abbreviation: "HOU", nbacomid: 1610612745 },
+{city: "Dallas" , nickname: "Mavericks" , abbreviation: "DAL", nbacomid: 1610612742}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
