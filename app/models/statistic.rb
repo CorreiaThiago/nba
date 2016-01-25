@@ -35,6 +35,17 @@ class Statistic < ActiveRecord::Base
     player_stats.save
   end
 
+  def get_points
+    points
+  end
+
+  def get_rebounds
+    rebounds
+  end
+
+  def get_minutes
+    minutes_played
+  end
 
 
   protected
@@ -54,6 +65,10 @@ class Statistic < ActiveRecord::Base
     oreb + dreb
   end
 
+  def minutes_played
+    "#{time_played/60}:#{time_played%60}"
+  end
+  
   def points
     (twosmade * 2) + (threesmade * 3) + freesmade
   end
