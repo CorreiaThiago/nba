@@ -1,6 +1,14 @@
 class Player < ActiveRecord::Base
   has_many :statistics
   has_many :participants, through: :statistics
+  validates :nbacomid, uniqueness: {case_sensitive: false}
+  validates :fname, presence: true
+  validates :lname, presence: true
+  validates :birthdate, presence: true
+  validates :country, presence: true
+  validates :school, presence: true
+  validates :height, presence: true, numericality: {only_integer: true}
+  validates :rookie_year, presence: true, numericality: {only_integer: true}
 
   def self.get_playerstats(game)
     search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"

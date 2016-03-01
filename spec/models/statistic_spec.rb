@@ -1,5 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe Statistic, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it {should belong_to(:player)}
+  it {should belong_to(:participant)}
 end

@@ -1,5 +1,6 @@
 class Game < ActiveRecord::Base
-	validates :nbacomid, uniqueness: true
+	validates :nbacomid, uniqueness: {case_sensitive: false}
+  validates :gamedate, presence: true
 	has_many :participants, dependent: :destroy
   has_many :teams, through: :participants
   has_many :statistics, through: :participants
