@@ -7,12 +7,13 @@ class Game < ActiveRecord::Base
   
 
   def self.get_games(date)
-    search_string = "http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}"
-    game_link = URI(search_string)
-    raw_data = JSON.parse(Net::HTTP.get(game_link))
+    game_result = Curl.get("http://stats.nba.com/stats/scoreboardV2?DayOffset=0&LeagueID=00&gameDate=#{date}") do |http|
+      http.headers['referer'] = 'http://stats.nba.com/scores/'
+    end
+    raw_data = JSON.parse(game_result.body)
     if raw_data["resultSets"][0]["rowSet"].count > 0 
-      games = raw_data["resultSets"]
-      add_games(games)
+     games = raw_data["resultSets"]
+     add_games(games)
     end
   end
 

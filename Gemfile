@@ -30,6 +30,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+#The Curb gem is installed to deal with NBA.com blocking the origina method using URI/NET::HTTP to get daily game numbers
+gem 'curb'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
