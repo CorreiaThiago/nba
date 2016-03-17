@@ -34,23 +34,23 @@ class Game < ActiveRecord::Base
       Participant.create(game_id: game, team_id: awayteam, homeaway: "A")
     end
     #Follow up with adding points totals for each participant of the game
-    # results[1]["rowSet"].each do |game|
-    #   gameid = Game.find_by(nbacomid: game[2]).id
-    #   teamid = Team.find_by(nbacomid: game[3]).id
-    #   gameteam = Participant.find_by(game_id: gameid, team_id: teamid)
-    #   gameteam.update_attributes(points: game[21])
-    # end
-    # #Follow up points total with determining the winner of each game
-    # games = Game.where("gamedate = ?", gamedate)
-    # games.each do |game|
-    #   if game.participants.first.points < game.participants.second.points
-    #     game.participants.first.update(winloss: "L")
-    #     game.participants.second.update(winloss: "W")
-    #   else
-    #     game.participants.first.update(winloss: "W")
-    #     game.participants.second.update(winloss: "L")
-    #   end
-    #   Player.get_playerstats(game.nbacomid)
-    # end
+    results[1]["rowSet"].each do |game|
+      gameid = Game.find_by(nbacomid: game[2]).id
+      teamid = Team.find_by(nbacomid: game[3]).id
+      gameteam = Participant.find_by(game_id: gameid, team_id: teamid)
+      gameteam.update_attributes(points: game[21])
+    end
+    #Follow up points total with determining the winner of each game
+    games = Game.where("gamedate = ?", gamedate)
+    games.each do |game|
+      if game.participants.first.points < game.participants.second.points
+        game.participants.first.update(winloss: "L")
+        game.participants.second.update(winloss: "W")
+      else
+        game.participants.first.update(winloss: "W")
+        game.participants.second.update(winloss: "L")
+      end
+      Player.get_playerstats(game.nbacomid)
+    end
   end
 end

@@ -6,8 +6,10 @@ RSpec.describe Participant, type: :model do
 
   let(:test_case) { JSON.parse(File.read('spec/json_tests/games_test.json'))["resultSets"]}
 
-  scenario "Adding the participants" do
-  	expect {Game.add_games(test_case) }.to change{ Participant.count }.by(10)
+
+  scenario "Adding the participants, after the games have been added" do
+  	Player.stub(:get_playerstats).and_return(true)
+		expect {Game.add_games(test_case) }.to change{ Participant.count }.by(10)
   end
 end
 
