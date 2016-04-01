@@ -11,11 +11,22 @@ RSpec.describe Player, type: :model do
   it {should validate_numericality_of(:height).only_integer}
   it {should validate_numericality_of(:rookie_year).only_integer}
 
-  let(:playerinfo) { JSON.parse(File.read('spec/json_tests/player_test.json'))}
-
-  scenario "Assuming you get the right JSON the player is added properly" do
+  before do
     Player.stub(:exists?).and_return(false)
     Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test.json'))["resultSets"][0]["rowSet"][0])
-    expect{Player.checkplayer(2404)}.to change{Player.count}.by(1)
+    Player.checkplayer(2404)
+  end
+
+  scenario "One record is added to the blank database" do  
+    expect(Player.count).to eq(1)
+  end
+
+  scenario "The proper information is added to the proper fields" do
+    expect(Player.first.fname).to eq("Chris")
+    expect(Player.first.lname).to eq("Wilcox")
+    expect(Player.first.school).to eq("Maryland")
+    expect(Player.first.height).to eq(82)
+    expect(Player.first.country).to eq("USA")
+    expect(Player.first.rookie_year).to eq(2002)
   end
 end
