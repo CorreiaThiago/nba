@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20160114041845) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "divisions", force: :cascade do |t|
     t.text     "name"
     t.text     "conference"
@@ -37,8 +40,8 @@ ActiveRecord::Schema.define(version: 20160114041845) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "participants", ["game_id"], name: "index_participants_on_game_id"
-  add_index "participants", ["team_id"], name: "index_participants_on_team_id"
+  add_index "participants", ["game_id"], name: "index_participants_on_game_id", using: :btree
+  add_index "participants", ["team_id"], name: "index_participants_on_team_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.string   "nbacomid"
@@ -54,7 +57,7 @@ ActiveRecord::Schema.define(version: 20160114041845) do
     t.datetime "updated_at",  null: false
   end
 
-  add_index "players", ["nbacomid"], name: "index_players_on_nbacomid", unique: true
+  add_index "players", ["nbacomid"], name: "index_players_on_nbacomid", unique: true, using: :btree
 
   create_table "statistics", force: :cascade do |t|
     t.integer  "player_id"
@@ -83,8 +86,8 @@ ActiveRecord::Schema.define(version: 20160114041845) do
     t.float    "yh"
   end
 
-  add_index "statistics", ["participant_id"], name: "index_statistics_on_participant_id"
-  add_index "statistics", ["player_id"], name: "index_statistics_on_player_id"
+  add_index "statistics", ["participant_id"], name: "index_statistics_on_participant_id", using: :btree
+  add_index "statistics", ["player_id"], name: "index_statistics_on_player_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.text     "city"
@@ -96,6 +99,11 @@ ActiveRecord::Schema.define(version: 20160114041845) do
     t.datetime "updated_at",   null: false
   end
 
-  add_index "teams", ["division_id"], name: "index_teams_on_division_id"
+  add_index "teams", ["division_id"], name: "index_teams_on_division_id", using: :btree
 
+  add_foreign_key "participants", "games"
+  add_foreign_key "participants", "teams"
+  add_foreign_key "statistics", "participants"
+  add_foreign_key "statistics", "players"
+  add_foreign_key "teams", "divisions"
 end
