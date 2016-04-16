@@ -10,17 +10,17 @@ class Player < ActiveRecord::Base
   validates :height, presence: true, numericality: {only_integer: true}
   validates :rookie_year, presence: true, numericality: {only_integer: true}
 
-  def self.get_playerstats(game)
-    search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
-    boxscore_link = URI(search_string)
-    boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
-    player_game_info = boxscore["resultSets"][0]["rowSet"]
-    player_game_info.each do |player|
-      player_id = player[4]
-      checkplayer(player_id)
-      Statistic.insert_player_stats(player)
-    end
+
+def self.get_playerstats(game)
+  search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
+  boxscore_link = URI(search_string)
+  boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
+  player_game_info = boxscore["resultSets"][0]["rowSet"]
+  player_game_info.each do |player|
+    checkplayer(player[4])
   end
+  Statistic.insert_player_stats(player_game_info)
+end
 
   private 
 		def self.checkplayer(player_id)

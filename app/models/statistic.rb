@@ -10,29 +10,31 @@ class Statistic < ActiveRecord::Base
   end
 
 
-  def self.insert_player_stats(statline)
-  	player_stats = Statistic.new
-  	game_id = Game.find_by(nbacomid: statline[0])
-  	team_id = Team.find_by(nbacomid: statline[1])
-  	player_stats.player = Player.find_by(nbacomid: statline[4])
-    player_stats.participant = Participant.find_by(game_id: game_id, team_id: team_id)
-  	player_stats.starter = is_starter?(statline[6])
-  	player_stats.time_played = get_seconds(statline[8])
-  	player_stats.twosmade = statline[9] - statline[12]
-    player_stats.twostaken = statline[10] - statline[13]
-    player_stats.threesmade = statline[12]
-    player_stats.threestaken= statline[13]
-    player_stats.freesmade = statline[15]
-    player_stats.freestaken = statline[16]
-    player_stats.oreb = statline[18]
-    player_stats.dreb = statline[19]
-    player_stats.assists = statline[21]
-    player_stats.steals = statline[22]
-    player_stats.blocks = statline[23]
-    player_stats.turnovers = statline[24]
-    player_stats.fouls = statline[25]
-    player_stats.plusminus = statline[27]
-    player_stats.save
+  def self.insert_player_stats(statstics_array)
+    statstics_array.each do |statline|
+    	player_stats = Statistic.new
+    	game_id = Game.find_by(nbacomid: statline[0])
+    	team_id = Team.find_by(nbacomid: statline[1])
+    	player_stats.player = Player.find_by(nbacomid: statline[4])
+      player_stats.participant = Participant.find_by(game_id: game_id, team_id: team_id)
+    	player_stats.starter = is_starter?(statline[6])
+    	player_stats.time_played = get_seconds(statline[8])
+    	player_stats.twosmade = statline[9] - statline[12]
+      player_stats.twostaken = statline[10] - statline[13]
+      player_stats.threesmade = statline[12]
+      player_stats.threestaken= statline[13]
+      player_stats.freesmade = statline[15]
+      player_stats.freestaken = statline[16]
+      player_stats.oreb = statline[18]
+      player_stats.dreb = statline[19]
+      player_stats.assists = statline[21]
+      player_stats.steals = statline[22]
+      player_stats.blocks = statline[23]
+      player_stats.turnovers = statline[24]
+      player_stats.fouls = statline[25]
+      player_stats.plusminus = statline[27]
+      player_stats.save
+    end
   end
 
   def get_points
@@ -66,7 +68,8 @@ class Statistic < ActiveRecord::Base
   end
 
   def minutes_played
-    "#{time_played/60}:#{time_played%60}"
+    Time.at(time_played).strftime("%M:%S")
+    #"#{time_played/60}:#{time_played%60}"
   end
   
   def points
