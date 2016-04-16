@@ -12,9 +12,11 @@ class Player < ActiveRecord::Base
 
 
 def self.get_playerstats(game)
-  search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
-  boxscore_link = URI(search_string)
-  boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
+  #search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
+  #boxscore_link = URI(search_string)
+  #boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
+  player_info = Curl.get("http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0")
+  boxscore = JSON.parse(player_info.body)
   player_game_info = boxscore["resultSets"][0]["rowSet"]
   player_game_info.each do |player|
     checkplayer(player[4])
@@ -46,9 +48,11 @@ end
     end
 
     def self.get_player(player_id)
-      search_string = "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}"
-      player_link = URI(search_string)
-      player_info = JSON.parse(Net::HTTP.get(player_link))
+      #search_string = "http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}"
+      #player_link = URI(search_string)
+      #player_info = JSON.parse(Net::HTTP.get(player_link))
+      player_raw = Curl.get("http://stats.nba.com/stats/commonplayerinfo?LeagueID=00&PlayerID=#{player_id}")
+      player_info = JSON.parse(player_raw.body)
       player_info["resultSets"][0]["rowSet"][0]
     end    
 end

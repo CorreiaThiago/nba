@@ -101,7 +101,7 @@ end
 =begin
 #Seeding Games Based on what date range you want to work with.  Getting game data is a time consuming process and can fill a lot of rows, so be careful
 start_date = '2015-10-27'.to_date
-end_date = '2015-12-01'.to_date
+end_date = '2015-10-28'.to_date
 while start_date < end_date do
   Game.get_games(start_date)
   start_date += 1
