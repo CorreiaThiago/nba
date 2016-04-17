@@ -97,20 +97,22 @@ divmembers.each do |divname, divteam|
   end
 end
 
-#comment out the =begin an =end lines below if you want to pre-populate the database
-=begin
-#Seeding Games Based on what date range you want to work with.  Getting game data is a time consuming process and can fill a lot of rows, so be careful
-start_date = '2015-10-27'.to_date
-end_date = '2015-10-28'.to_date
-while start_date < end_date do
-  Game.get_games(start_date)
-  start_date += 1
+def seed_season (startdate, enddate, asgdate)
+  while startdate < enddate do
+    next if startdate == asgdate
+    Game.get_games(startdate)
+    startdate += 1
+  end
 end
-=end
 
+# seed_season will populate data for a given season, you can uncomment the seasons below to seed some seasons automatically
 
-
-
+# seed_season ('2010-10-26', '2011-04-13', '2011-02-20') # Populate the 2010/2011 regular season
+# seed_season ('2011-12-12', '2012-04-26', '1900-01-01') # Populate the 2011/2012 regular season, No ASG due to shortened season
+# seed_season ('2012-10-30', '2013-04-17', '2013-02-17') # Populate the 2012/2013 regular season
+# seed_season ('2013-10-29', '2014-04-16', '2014-02-16') # Populate the 2013/2014 regular season
+# seed_season ('2014-10-28', '2015-04-15', '2015-02-15') # Populate the 2014/2015 regular season
+# seed_season ('2015-10-27', '2016-04-13', '2016-02-14') # Populate the 2015/2016 regular season
 
 
 
