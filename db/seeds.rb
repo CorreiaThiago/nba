@@ -101,12 +101,12 @@ def seed_season (startdate, enddate, asgdate)
   while startdate < enddate do
     next if startdate == asgdate
     Game.get_games(startdate)
-    startdate += 1
+    startdate = (startdate.to_date + 1).to_s
   end
 end
 
 # seed_season will populate data for a given season, you can uncomment the seasons below to seed some seasons automatically
-
+seed_season('2015-10-28', '2015-10-29', '2016-02-14') # Populate a months worth of games for testing
 # seed_season ('2010-10-26', '2011-04-13', '2011-02-20') # Populate the 2010/2011 regular season
 # seed_season ('2011-12-12', '2012-04-26', '1900-01-01') # Populate the 2011/2012 regular season, No ASG due to shortened season
 # seed_season ('2012-10-30', '2013-04-17', '2013-02-17') # Populate the 2012/2013 regular season
