@@ -12,6 +12,3 @@ class Participant < ActiveRecord::Base
 end
 
 
-#    t.string   "homeaway"
-#    t.string   "winloss"
-#    t.integer  "points"

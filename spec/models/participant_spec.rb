@@ -59,8 +59,3 @@ RSpec.describe Participant, type: :model do
   end
 end
 
-
-
-# Game.first.participants.home.pluck("points")
-# Game.first.participants.home.pluck("winloss")
-# Team.find(Game.first.participants.home.pluck("team_id"))
