@@ -33,12 +33,8 @@ end
 	      fname = player_info[1]
 	      lname = player_info[2]
 	      birthdate = player_info[6].to_date
-	      if player_info[7].nil?
-          school = "N/A"
-        else
-          school = player_info[7]
-        end
-	      country = player_info[8]
+	      player_info[7].nil? ? school = "N/A" : school = player_info[7]
+        player_info[8].nil? ? country = "Unknown" : country = player_info[8]
 	      position = player_info[14]
 	      rookie_year = player_info[22]
 	      Player.create(nbacomid: nbacomid, fname: fname, lname: lname, birthdate: birthdate, school: school, country: country, height: height, position: position, rookie_year: rookie_year)

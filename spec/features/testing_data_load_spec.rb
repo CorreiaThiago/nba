@@ -10,6 +10,6 @@ RSpec.feature "Testing the load of the test data" do
 		expect(Game.count).to eq(17)
 		expect(Participant.count).to eq(34)
 		expect(Statistic.count).to eq(368)
-		expect(Player.count).to eq(299)
+		expect(Player.count).to eq(316)
 	end
 end

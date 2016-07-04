@@ -32,7 +32,23 @@ RSpec.describe Player, type: :model do
     end
   end
 
-  context "With the school as a nil value" do
+  context "With the school as a null value" do
+    before do
+      Player.stub(:exists?).and_return(false)
+      Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_school.json'))["resultSets"][0]["rowSet"][0])
+      Player.checkplayer(2404)
+    end
+
+    scenario "One record is added to the blanke database" do
+      expect(Player.count).to eq(1)
+    end
+
+    scenario "The School is listed as 'N/A' " do
+      expect(Player.first.school).to eq("N/A")
+    end
+  end
+
+  context "With the country as a null value" do
     before do
       Player.stub(:exists?).and_return(false)
       Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_country.json'))["resultSets"][0]["rowSet"][0])
@@ -44,7 +60,7 @@ RSpec.describe Player, type: :model do
     end
 
     scenario "The School is listed as 'N/A' " do
-      expect(Player.first.school).to eq("N/A")
+      expect(Player.first.country).to eq("Unknown")
     end
   end
 end

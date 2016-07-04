@@ -1,7 +1,7 @@
 class Participant < ActiveRecord::Base
   belongs_to :game
   belongs_to :team
-  has_many :statistics
+  has_many :statistics, dependent: :destroy
   has_many :players, through: :statistics
   validates_inclusion_of :homeaway, {in: %w[H A]}
 
