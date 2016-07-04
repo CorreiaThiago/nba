@@ -33,7 +33,11 @@ end
 	      fname = player_info[1]
 	      lname = player_info[2]
 	      birthdate = player_info[6].to_date
-	      school = player_info[7]
+	      if player_info[7].nil?
+          school = "N/A"
+        else
+          school = player_info[7]
+        end
 	      country = player_info[8]
 	      position = player_info[14]
 	      rookie_year = player_info[22]

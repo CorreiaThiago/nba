@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160114041845) do
+ActiveRecord::Schema.define(version: 20160704192640) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,13 +48,13 @@ ActiveRecord::Schema.define(version: 20160114041845) do
     t.string   "fname"
     t.string   "lname"
     t.date     "birthdate"
-    t.string   "school"
+    t.string   "school",      default: "N/A"
     t.string   "country"
     t.integer  "height"
     t.string   "position"
     t.integer  "rookie_year"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
   end
 
   add_index "players", ["nbacomid"], name: "index_players_on_nbacomid", unique: true, using: :btree
