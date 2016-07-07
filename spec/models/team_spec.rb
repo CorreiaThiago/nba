@@ -16,13 +16,21 @@ RSpec.describe Team, type: :model do
 
   context "Evaluating team record" do
 
-    let(:team) { Team.find_by(abbreviation: "OKC")}
     before { system 'psql -d nba_test -f spec/dumps/query_data_source.sql' }
 
     scenario "The record method returns the the wins and losses and win percentage" do
-      x = team.record
+      x = Team.find_by(abbreviation: "OKC").record
       expect(x[:pct]).to eq 0.647
       expect(x[:record]).to eq "11-6"
     end
   end
 end
+
+
+select participants.game_id, SUM(steals) from statistics
+INNER JOIN participants 
+on statistics.participant_id = participants.id
+INNER JOIN teams 
+on participants.team_id = teams.id
+WHERE teams.id = 15
+GROUP BY statistics.game_id;
