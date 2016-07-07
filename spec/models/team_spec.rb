@@ -26,11 +26,3 @@ RSpec.describe Team, type: :model do
   end
 end
 
-
-select participants.game_id, SUM(steals) from statistics
-INNER JOIN participants 
-on statistics.participant_id = participants.id
-INNER JOIN teams 
-on participants.team_id = teams.id
-WHERE teams.id = 15
-GROUP BY statistics.game_id;
