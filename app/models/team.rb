@@ -7,4 +7,13 @@ class Team < ActiveRecord::Base
   validates :division, presence: true
   validates :abbreviation, uniqueness: {case_sensitive: false}
   validates :nickname, uniqueness: {case_sensitive: false}
+
+
+  def record
+    wins = self.participants.win.count
+    losses = self.participants.loss.count
+    total = self.participants.count
+
+    {record: "#{wins}-#{losses}", pct: (wins/total.to_f).round(3)}
+  end
 end
