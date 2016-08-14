@@ -1,35 +1,28 @@
 # NBA Statistics Project
 
->A long gestating project to download NBA player statistics game by game (including shot data) to further analyze the data at my own leisure.  
+### Goal:
 
->Right now it's still in the building phase of pulling data from NBA.com and populating data.
+The goal of this project is to take game data from NBA.com and populate tables to look out and evaluate game data by team, and player, in new and interesting ways.  
 
->Currently models and methods exist to download game data, team data, and determine if participating players are in the players model.
+### Accomplished
 
->Next step is to pull player boxscore data into own model.
+* Models built, code written (and re-written) to get game data from NBA.com, on a day by day basis.  Model population has been tested via RSpec/Capybara combination.  This included having to re-write code to get data from NBA.com as original JSON requests had ceased working properly.
 
->I hope to go back as many seasons as possible though storage space might be an i
->Built in Rails and has some seed data for divisions and teams.
+* Seed data written to populate 'more static' tables, for teams and divisions, along with a basic script for populating seasons (regular season data only) through currently existing code. 
 
-# Contribution
+### Needs Doing
 
->I'd love for anyone interested to fork and contribute though right now it's still a data collection project.  Data display and manipulation is not a consideration just yet.
+* ActiveModel Queries - now that raw data is retrieved, it must be analyzed, simple and complex queries are required to do this
 
-1. Fork it!
-2. Create your feature branch: `git checkout -b my-new-feature`
-3. Commit your changes: `git commit -am 'Add some feature'`
-4. Push to the branch: `git push origin my-new-feature`
-5. Submit a pull request, and I'll get pack to you as soon as I can.
+* Views that present desired data in easy to follow and read ways
 
-## History 
+* Exporting access for users? 
 
->Coming Soon
+* Protection (via login access) of sensitive methods and information
 
-## Credits
+### Gems Introduced during production
 
->As of now, only me?
-
-## License
-
->Not applicable at this time?
-
+* should-mathcers
+* database_cleaner
+* curb
+* pg (first use of postgres instead of SQLite in development environment )
