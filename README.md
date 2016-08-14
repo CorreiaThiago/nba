@@ -24,6 +24,7 @@ The goal of this project is to take game data from NBA.com and populate tables t
 * pg (first use of postgres instead of SQLite in development environment )
 
 ### New Skills Learned 
+
 * Breaking down and parsing complicated JSON data (from NBA.com)
 * Testing models 
 * Stubbing out methods that either can't be run or aren't needed when running a specific test
