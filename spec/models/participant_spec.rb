@@ -16,7 +16,7 @@ RSpec.describe Participant, type: :model do
 
   context "Adding the participants, after the games have been added" do
     before do
-  	 Player.stub(:get_playerstats).and_return(true)
+  	 allow(Player).to receive(:get_playerstats).and_return(true)
      Game.add_games(test_case)
    end
 

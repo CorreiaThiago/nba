@@ -8,7 +8,7 @@ RSpec.describe Statistic, type: :model do
   let(:stats) { JSON.parse(File.read('spec/json_tests/statistics_test.json'))["resultSets"][0]["rowSet"]}
 
   before do
-    Player.stub(:get_playerstats).and_return(true)
+    allow(Player).to receive(:get_playerstats).and_return(true)
     Game.add_games(test_case)
     Statistic.insert_player_stats(stats)
   end

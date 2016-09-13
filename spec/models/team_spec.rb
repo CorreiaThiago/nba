@@ -25,8 +25,3 @@ RSpec.describe Team, type: :model do
     end
   end
 end
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 25e2f414025bd3f405a77215085d22fc07f04e33

@@ -13,8 +13,8 @@ RSpec.describe Player, type: :model do
 
   context "With all the information filled out" do
     before do
-      Player.stub(:exists?).and_return(false)
-      Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test.json'))["resultSets"][0]["rowSet"][0])
+      allow(Player).to receive(:exists?).and_return(false)
+      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test.json'))["resultSets"][0]["rowSet"][0])
       Player.checkplayer(2404)
     end
 
@@ -34,8 +34,8 @@ RSpec.describe Player, type: :model do
 
   context "With the school as a null value" do
     before do
-      Player.stub(:exists?).and_return(false)
-      Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_school.json'))["resultSets"][0]["rowSet"][0])
+      allow(Player).to receive(:exists?).and_return(false)
+      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_school.json'))["resultSets"][0]["rowSet"][0])
       Player.checkplayer(2404)
     end
 
@@ -50,8 +50,8 @@ RSpec.describe Player, type: :model do
 
   context "With the country as a null value" do
     before do
-      Player.stub(:exists?).and_return(false)
-      Player.stub(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_country.json'))["resultSets"][0]["rowSet"][0])
+      allow(Player).to receive(:exists?).and_return(false)
+      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_country.json'))["resultSets"][0]["rowSet"][0])
       Player.checkplayer(2404)
     end
 
