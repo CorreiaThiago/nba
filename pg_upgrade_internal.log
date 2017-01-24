@@ -1,0 +1,23 @@
+
+-----------------------------------------------------------------
+  pg_upgrade run on Mon Dec 26 12:30:37 2016
+-----------------------------------------------------------------
+
+You must identify the directory where the old cluster binaries reside.
+Please use the -b command-line option or the PGBINOLD environment variable.
+Running in verbose mode
+
+-----------------------------------------------------------------
+  pg_upgrade run on Mon Dec 26 12:30:51 2016
+-----------------------------------------------------------------
+
+check for "/usr/local/Cellar/postgresql/9.4.5_2/bin" failed: No such file or directory
+
+Running in verbose mode
+
+-----------------------------------------------------------------
+  pg_upgrade run on Mon Dec 26 12:32:11 2016
+-----------------------------------------------------------------
+
+check for "/usr/local/Cellar/postgresql/9.4.5_2/bin" failed: No such file or directory
+

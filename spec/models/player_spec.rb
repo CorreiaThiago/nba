@@ -55,7 +55,7 @@ RSpec.describe Player, type: :model do
       Player.checkplayer(2404)
     end
 
-    scenario "One record is added to the blanke database" do
+    scenario "One record is added to the database" do
       expect(Player.count).to eq(1)
     end
 
