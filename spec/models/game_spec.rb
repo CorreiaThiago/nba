@@ -7,7 +7,9 @@ RSpec.describe Game, type: :model do
   let(:test_case) { JSON.parse(File.read('spec/json_tests/games_test.json'))["resultSets"]}
     scenario "Adding the games" do
     	allow(Player).to receive(:get_playerstats).and_return(true)
-      expect { Game.add_games(test_case) }.to change {Game.count}.by(5)
+    	VCR.use_cassette("Get Games") do
+    		expect{Game.get_games("2011-12-25")}.to change {Game.count}.by(5)
+    	end
     end
 end
 	
