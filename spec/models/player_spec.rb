@@ -13,9 +13,13 @@ RSpec.describe Player, type: :model do
 
   context "With all the information filled out" do
     before do
-      allow(Player).to receive(:exists?).and_return(false)
-      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test.json'))["resultSets"][0]["rowSet"][0])
-      Player.checkplayer(2404)
+      VCR.use_cassette("Get Player") do
+        Player.checkplayer(2404)
+      end
+    end
+
+    after do
+      VCR.eject_cassette
     end
 
     scenario "One record is added to the blank database" do  
@@ -29,38 +33,6 @@ RSpec.describe Player, type: :model do
       expect(Player.first.height).to eq(82)
       expect(Player.first.country).to eq("USA")
       expect(Player.first.rookie_year).to eq(2002)
-    end
-  end
-
-  context "With the school as a null value" do
-    before do
-      allow(Player).to receive(:exists?).and_return(false)
-      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_school.json'))["resultSets"][0]["rowSet"][0])
-      Player.checkplayer(2404)
-    end
-
-    scenario "One record is added to the blanke database" do
-      expect(Player.count).to eq(1)
-    end
-
-    scenario "The School is listed as 'N/A' " do
-      expect(Player.first.school).to eq("N/A")
-    end
-  end
-
-  context "With the country as a null value" do
-    before do
-      allow(Player).to receive(:exists?).and_return(false)
-      allow(Player).to receive(:get_player).and_return(JSON.parse(File.read('spec/json_tests/player_test_null_country.json'))["resultSets"][0]["rowSet"][0])
-      Player.checkplayer(2404)
-    end
-
-    scenario "One record is added to the database" do
-      expect(Player.count).to eq(1)
-    end
-
-    scenario "The School is listed as 'N/A' " do
-      expect(Player.first.country).to eq("Unknown")
     end
   end
 end
