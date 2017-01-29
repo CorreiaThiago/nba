@@ -4,13 +4,18 @@ RSpec.describe Statistic, type: :model do
   it {should belong_to(:player)}
   it {should belong_to(:participant)}
 
-  let(:test_case) { JSON.parse(File.read('spec/json_tests/games_test.json'))["resultSets"]}
   let(:stats) { JSON.parse(File.read('spec/json_tests/statistics_test.json'))["resultSets"][0]["rowSet"]}
 
   before do
     allow(Player).to receive(:get_playerstats).and_return(true)
-    Game.add_games(test_case)
+    VCR.use_cassette("Get Games") do
+      Game.get_games("2011-12-25")
+    end
     Statistic.insert_player_stats(stats)
+  end
+
+  after do
+    VCR.eject_cassette
   end
 
   scenario "21 records are added to the Statistic Table" do
