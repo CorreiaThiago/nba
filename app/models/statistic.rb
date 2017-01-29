@@ -56,7 +56,7 @@ class Statistic < ActiveRecord::Base
   	!input.empty?
   end
 
-  def self.league_averages(stat)
+  def self.averages(stat)
     made = "#{stat}made".to_sym
     taken = "#{stat}taken".to_sym
     #binding.pry
