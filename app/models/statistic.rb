@@ -56,6 +56,13 @@ class Statistic < ActiveRecord::Base
   	!input.empty?
   end
 
+  def self.league_averages(stat)
+    made = "#{stat}made".to_sym
+    taken = "#{stat}taken".to_sym
+    #binding.pry
+    (sum(made)/sum(taken).to_f).round(4) * 100
+  end
+
   def self.get_seconds(input)
   	time_array = input.split(":")
   	minutes = time_array[0].to_i * 60
