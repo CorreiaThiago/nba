@@ -2,6 +2,9 @@ class Statistic < ActiveRecord::Base
   belongs_to :player
   belongs_to :participant
 
+  scope :home, -> {joins(:participant).merge(Participant.home)}
+  scope :away, -> {joins(:participant).merge(Participant.away)}
+
   before_save do
     double
     fanduel
@@ -47,7 +50,7 @@ class Statistic < ActiveRecord::Base
 
   def get_minutes
     minutes_played
-  end
+  end 
 
 
   protected
@@ -57,10 +60,11 @@ class Statistic < ActiveRecord::Base
   end
 
   def self.averages(stat)
-    made = "#{stat}made".to_sym
-    taken = "#{stat}taken".to_sym
+    made = pluck("#{stat}made".to_sym)
+    taken = pluck("#{stat}taken".to_sym)
     #binding.pry
-    (sum(made)/sum(taken).to_f).round(4) * 100
+    (made.sum/taken.sum.to_f).round(4) * 100
+    #(sum(made)/sum(taken).to_f).round(4) * 100
   end
 
   def self.get_seconds(input)

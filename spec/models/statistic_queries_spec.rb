@@ -32,4 +32,29 @@ RSpec.describe Statistic, type: :model do
 			expect(otto.averages("frees")).to be_within(0.001).of(87.88)
 		end
 	end
+
+	context "Home Scope will yield the right information" do
+
+		let(:home) {Statistic.home}
+
+		scenario "It should have the right amount of records" do
+			expect(home.count).to eq 2716
+		end
+
+		scenario "It should work on the points testing" do
+			expect(home.averages("twos")).to be_within(0.001).of(48.16)
+		end
+	end
+
+	context "Away scope will yield the right information" do
+		let(:away) {Statistic.away}
+
+		scenario "It should have the right amount of records" do
+			expect(away.count).to eq 2710
+		end
+
+		scenario "It should work on the averages testing" do
+			expect(away.averages("frees")).to be_within(0.001).of(76.50)
+		end
+	end
 end
