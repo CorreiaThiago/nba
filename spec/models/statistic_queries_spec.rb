@@ -57,4 +57,14 @@ RSpec.describe Statistic, type: :model do
 			expect(away.averages("frees")).to be_within(0.001).of(76.50)
 		end
 	end
+
+	context "Team Scope will yield the right information" do
+		let(:team) {Statistic.team('PHI')}
+
+		scenario "It should have the right amount of records" do
+			expect(team.count).to eq 179
+		end
+	end
+
+
 end

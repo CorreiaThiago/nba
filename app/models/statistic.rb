@@ -4,6 +4,7 @@ class Statistic < ActiveRecord::Base
 
   scope :home, -> {joins(:participant).merge(Participant.home)}
   scope :away, -> {joins(:participant).merge(Participant.away)}
+  #scope :team ('abbr') 
 
   before_save do
     double
