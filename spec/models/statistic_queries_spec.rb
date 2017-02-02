@@ -64,6 +64,18 @@ RSpec.describe Statistic, type: :model do
 		scenario "It should have the right amount of records" do
 			expect(team.count).to eq 179
 		end
+
+		scenario "It should have the right amount of home statistics" do
+			expect(team.home.averages("twos")).to be_within(0.001).of(47.21)
+			expect(team.home.averages("threes")).to be_within(0.001).of(29.48)
+			expect(team.home.averages("frees")).to be_within(0.001).of(64.81)
+		end
+
+		scenario "It should have the right amount of away statistics" do
+			expect(team.away.averages("twos")).to be_within(0.001).of(45.21)
+			expect(team.away.averages("threes")).to be_within(0.001).of(33.22)
+			expect(team.away.averages("frees")).to be_within(0.001).of(76.13)
+		end
 	end
 
 

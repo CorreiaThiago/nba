@@ -4,7 +4,7 @@ class Statistic < ActiveRecord::Base
 
   scope :home, -> {joins(:participant).merge(Participant.home)}
   scope :away, -> {joins(:participant).merge(Participant.away)}
-  #scope :team ('abbr') 
+  scope :team, -> (abbr) {joins(:participant => :team).where('teams.abbreviation = ?', abbr)}
 
   before_save do
     double
@@ -63,10 +63,19 @@ class Statistic < ActiveRecord::Base
   def self.averages(stat)
     made = pluck("#{stat}made".to_sym)
     taken = pluck("#{stat}taken".to_sym)
-    #binding.pry
     (made.sum/taken.sum.to_f).round(4) * 100
-    #(sum(made)/sum(taken).to_f).round(4) * 100
   end
+
+  # def self.averages(stats)
+  #   made = 0
+  #   taken = 0
+  #   self.each do |record|
+  #     made += record.pluck("#{stat}made")
+  #     taken += record.pluc("#{stat}taken")
+  #   end
+  #   (made/taken.to_f).round(4) * 100
+  # end
+
 
   def self.get_seconds(input)
   	time_array = input.split(":")
