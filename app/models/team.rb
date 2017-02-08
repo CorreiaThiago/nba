@@ -10,14 +10,6 @@ class Team < ActiveRecord::Base
 
 
   def record
-    wins = self.participants.win.count
-    losses = self.participants.loss.count
-    total = self.participants.count
-
-    {record: "#{wins}-#{losses}", pct: (wins/total.to_f).round(3)}
-  end
-
-  def record_version_two
     outcomes = self.participants.pluck(:winloss)
     wins = outcomes.count("W")
     losses = outcomes.length - wins
