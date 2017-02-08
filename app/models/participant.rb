@@ -9,6 +9,12 @@ class Participant < ActiveRecord::Base
   scope :away, -> {where(homeaway: 'A')}
   scope :win, -> {where(winloss: 'W')}
   scope :loss, -> {where(winloss: 'L')}
+
+
+  def opponent
+  	opponent = Participant.where("game_id =? and team_id != ?", self.game, self.team).first
+  	opponent.team.nickname
+  end
 end
 
 

@@ -66,7 +66,7 @@ RSpec.describe Statistic, type: :model do
 		end
 
 		scenario "It should have the right amount of home statistics" do
-			expect(team.home.averages("twos")).to be_within(0.001).of(47.21)
+			expect(team.home.averages("twos")).to be_within(.001).of(47.21)
 			expect(team.home.averages("threes")).to be_within(0.001).of(29.48)
 			expect(team.home.averages("frees")).to be_within(0.001).of(64.81)
 		end
