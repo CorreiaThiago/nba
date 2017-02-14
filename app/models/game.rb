@@ -17,6 +17,11 @@ class Game < ActiveRecord::Base
     end
   end
 
+
+  def gamedate_display
+    gamedate.strftime("%B %d, %Y")
+  end
+
   private
 
   def self.add_games(results)

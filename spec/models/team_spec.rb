@@ -13,7 +13,7 @@ RSpec.describe Team, type: :model do
   scenario "It should have the right amount of teams" do
     expect(Team.count).to eq 30
   end
-
+  
   context "Evaluating team values" do
     let(:team) {Team.find_by(abbreviation: "PHI")}
     before { system 'psql -d nba_test -f spec/dumps/query_data_source.sql' }
@@ -22,7 +22,9 @@ RSpec.describe Team, type: :model do
     scenario "The record method returns the the wins and losses and win percentage" do
       x = Team.find_by(abbreviation: "OKC").record
       expect(x[:pct]).to eq 0.647
-      expect(x[:record]).to eq "11-6"
+      expect(x[:wins]).to eq 11
+      expect(x[:losses]).to eq 6
+      expect(x[:team]).to eq "Oklahoma City Thunder"
     end
 
     scenario "The Philadelphia Seventy-Sixers two point percentage is calculated properly" do
@@ -35,6 +37,10 @@ RSpec.describe Team, type: :model do
 
     scenario "The Seventy-Sixers free throw percentage is claculated properly" do
       expect(team.statistics.averages("frees")).to be_within(0.001).of(71.35)
+    end
+
+    scenario "The display_name should work properly" do
+      expect(team.display_name).to eq "Philadelphia Seventy-Sixers"
     end
   end
 end

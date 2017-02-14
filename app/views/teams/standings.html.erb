@@ -1,0 +1,31 @@
+<h1 class="text-center">League Standings as of <%= @standingsdate %></h1>
+
+<% @eastern.each do |division, records| %>
+	<div id="<%= division.downcase %>" class="row">
+		<div class="row">
+			<div class="col-md-3 text-center"><h4><%= division %> Division</h4></div>
+			<div class="col-md-3">
+				<div class="row">
+					<div class="col-md-6"><h5>W</h5></div>
+					<div class="col-md-6"><h5>L</h5></div>
+				</div>
+			</div>
+			<div class="col-md-3"><h5>Pct</h5></div>
+			<div class="col-md-3"><h5>GB</h5></div>
+		</div>
+		<% records.each.with_index do |team_info, index| %> 
+			<div class="row">
+				<div class="col-md-3"><%= team_info[:team] %></div>
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6"><%= team_info[:wins] %></div>
+						<div class="col-md-6"><%= team_info[:losses] %></div>
+					</div>
+				</div>
+				<div class="col-md-3"><%= team_info[:pct] %></div>
+				<div class="col-md-3"><%= team_info[:gb] %></div>
+			</div>
+		<% end %>
+	</div>
+<% end %>
+
