@@ -12,7 +12,7 @@ RSpec.feature "Testing the Standings page" do
 	end
 
 	scenario "Expect the first place team in the Atlantic Division to be the Toronto Raptors" do
-		within("div#atlantic div:nth-of-type(1)") do
+		within("div#atlantic div[data-place='0']") do
 			expect(page).to have_content("Toronto Raptors")
 		end
 	end

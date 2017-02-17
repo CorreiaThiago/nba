@@ -15,7 +15,10 @@
 		</div>
 		<% records.each.with_index do |team_info, index| %> 
 			<div class="row">
-				<div class="col-md-3"><%= team_info[:team] %></div>
+				<%= content_tag(:div, team_info[:team], class: "col-md-3", data: {place: index}) %>
+<!-- 				<%= tag('div', {class: "col-md-3", data: { place: index}}, true) %>
+					<%= team_info[:team] %>
+				</div> -->
 				<div class="col-md-3">
 					<div class="row">
 						<div class="col-md-6"><%= team_info[:wins] %></div>
