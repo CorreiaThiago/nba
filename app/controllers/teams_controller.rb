@@ -6,8 +6,8 @@ class TeamsController < ApplicationController
   		@eastern[division.name] = []
   		division.teams.each do |team|
   			@eastern[division.name] << team.record
-  			@eastern[division.name].sort_by!{|hash| hash[:pct]}.reverse!
   		end
+      @eastern[division.name].sort_by!{|hash| hash[:pct]}.reverse!
   	end
   end
 end
