@@ -24,7 +24,7 @@
 					</div>
 				</div>
 				<div class="col-md-3 winpct"><%= team_info[:pct] %></div>
-				<div class="col-md-3"><%= team_info[:gb] %></div>
+				<div class="col-md-3 gb"><%= index == 0 ? team_info[:gb] : Fractional.new(team_info[:gb], to_human: true).to_s %></div>
 			</div>
 		<% end %>
 	</div>

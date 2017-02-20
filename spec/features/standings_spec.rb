@@ -40,4 +40,22 @@ RSpec.feature "Testing the Standings page" do
 			expect(page).to have_content("0.529")
 		end
 	end
+
+	scenario "Expect the first place team in the Central Division to have '--' in the games behind listing" do
+		within("div#central-0 div.gb") do
+			expect(page).to have_content("--")
+		end
+	end
+
+	scenario "Expect the third place team in the Atlantic division to have 3 in the games behind listing" do
+		within("div#atlantic-2 div.gb") do
+			expect(page).to have_content("3")
+		end
+	end
+
+	scenario "Expect the last place team in the central Divsion to have 7 1/2 as the games behind listing" do
+		within("div#central-4 div.gb") do
+			expect(page).to have_content("7 1/2")
+		end
+	end
 end
