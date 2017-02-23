@@ -3,7 +3,7 @@ class Division < ActiveRecord::Base
 	validates :name, uniqueness: { case_sensitive: false }
   has_many :teams
 
-  scope :east, -> {where(conference: 'Eastern')}
-  scope :west, -> {where(conference: 'Western')}
+  scope :eastern, -> {where(conference: 'Eastern')}
+  scope :western, -> {where(conference: 'Western')}
 
 end

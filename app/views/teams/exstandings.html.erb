@@ -1,0 +1,42 @@
+<h1 class="text-center">League Standings as of <%= @standingsdate %></h1>
+
+<!-- <div id="standings" >
+	<div data-conference="eastern" class="row">
+		Eastern Conference
+	</div>
+	<% @eastern.each #do |division, records| %>
+		<div id="<%= division.downcase %>" class="row">
+			<div class="row">
+				<div class="col-md-3 text-center"><h4><%= division %> Division</h4></div>
+				<div class="col-md-3">
+					<div class="row">
+						<div class="col-md-6"><h5>W</h5></div>
+						<div class="col-md-6"><h5>L</h5></div>
+					</div>
+				</div>
+				<div class="col-md-3"><h5>Pct</h5></div>
+				<div class="col-md-3"><h5>GB</h5></div>
+			</div>
+			<% records.each.with_index #do |team_info, index| %> 
+				<%= tag(#'div', {class: "row", id: "#{division.downcase}-#{index}"}, true) %>
+					<%= content_tag(:#div, team_info[:team], class: "col-md-3", data: {place: index}) %>
+					<div class="col-md-3">
+						<div class="row">
+							<div class="col-md-6 wins"><%= team_info[:wins] %></div>
+							<div class="col-md-6 losses"><%= team_info[:losses] %></div>
+						</div>
+					</div>
+					<div class="col-md-3 winpct"><%= team_info[:pct] %></div>
+					<div class="col-md-3 gb"><%= #index == 0 ? team_info[:gb] : Fractional.new(team_info[:gb], to_human: true).to_s %></div>
+				</div>
+			<% #end %>
+		</div>
+	<%# end %>
+</div>
+ -->
+
+<div id="standings">
+	<% @standings.each do |key, value| %>
+		<%= render 'conference', {conference_name: key, divisions: value} %>
+	<% end %>
+</div>

@@ -7,8 +7,20 @@ RSpec.feature "Testing the Standings page" do
 		visit standings_path
 	end
 
-	scenario "The standings page should have the right data" do
+	scenario "The standings page should have the right date" do
 		expect(page).to have_content("League Standings as of November 29, 2015")
+	end
+
+	scenario "The eastern conference should come before the western conference" do
+		within ("div#standings div[data-conference]:nth-child(1)") do
+			expect(page).to have_content("Eastern Conference")
+		end
+	end
+
+	scenario "The western conference is listed as the second data-conference child" do
+		within("div#standings div[data-conference]:nth-child(2)") do
+			expect(page).to have_content("Western Conference")
+		end
 	end
 
 	scenario "Expect the first place team in the Atlantic Division to be the Toronto Raptors" do
