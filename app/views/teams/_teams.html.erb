@@ -1,0 +1,13 @@
+<% teams.each.with_index do |team_info, index| %>
+	<%= tag('div', {class: "row", id: "#{division.downcase}-#{index}"}, true) %>
+		<%= content_tag(:div, team_info[:team], class: "col-md-3 team", data: {place: index}) %>
+		<div class="col-md-3">
+			<div class="row">
+				<div class="col-md-6 wins"><%= team_info[:wins] %></div>
+				<div class="col-md-6 losses"><%= team_info[:losses] %></div>
+			</div>
+		</div>
+		<div class="col-md-3 winpct"><%= team_info[:pct] %></div>
+		<div class="col-md-3 gb"><%= index == 0 ? team_info[:gb] : Fractional.new(team_info[:gb], to_human: true).to_s %></div>
+	</div>
+<% end %>

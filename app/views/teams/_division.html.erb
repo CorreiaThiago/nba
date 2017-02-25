@@ -1,5 +1,3 @@
-<!-- division_name and teams
- -->
 <div class="row" data-division="<%= division_name %>" >
 	<div class="row">
 		<div class="col-md-3 text-center"><h4><%= division_name %> Division</h4></div>
@@ -12,7 +10,5 @@
 		<div class="col-md-3"><h5>Pct</h5></div>
 		<div class="col-md-3"><h5>GB</h5></div>
 	</div>
-
-	<!-- This is where the rendering of each team will go -->
-
+	<%= render 'teams', {teams: teams, division: division_name} %>
 </div>
