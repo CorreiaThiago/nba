@@ -1,6 +1,6 @@
 <% teams.each.with_index do |team_info, index| %>
-	<%= tag('div', {class: "row", id: "#{division.downcase}-#{index}"}, true) %>
-		<%= content_tag(:div, team_info[:team], class: "col-md-3 team", data: {place: index}) %>
+	<%= tag('div', {class: "row team", id: "#{division.downcase}-#{index}"}, true) %>
+		<%= content_tag(:span, team_info[:team], class: "col-md-3 teamname", data: {place: index}) %>
 		<div class="col-md-3">
 			<div class="row">
 				<div class="col-md-6 wins"><%= team_info[:wins] %></div>

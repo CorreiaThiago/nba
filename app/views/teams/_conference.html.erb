@@ -1,5 +1,5 @@
 <div class="row" data-conference="<%= conference_name.downcase %>" >
-	<%= "#{conference_name} Conference" %>
+	<h2 class="text-left"><%= "#{conference_name} Conference" %></h2>
 		<% divisions.each do |key, value| %>
 			<%= render 'division', division_name: key, teams: value %>
 		<% end %>

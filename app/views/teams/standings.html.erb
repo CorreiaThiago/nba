@@ -1,8 +1,9 @@
 <h1 class="text-center">League Standings as of <%= @standingsdate %></h1>
 
-
-<div id="standings">
-	<% @standings.each do |key, value| %>
-		<%= render 'conference', {conference_name: key, divisions: value} %>
-	<% end %>
+<div class="row">
+	<div id="standings" class="col-md-10 col-md-offset-2">
+		<% @standings.each do |key, value| %>
+			<%= render 'conference', {conference_name: key, divisions: value} %>
+		<% end %>
+	</div>
 </div>
