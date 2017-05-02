@@ -17,6 +17,10 @@ class Game < ActiveRecord::Base
     end
   end
 
+  def self.qualify
+    select(:gamedate).distinct.count/5
+  end 
+
 
   def gamedate_display
     gamedate.strftime("%B %d, %Y")
