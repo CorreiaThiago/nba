@@ -11,18 +11,24 @@ class Player < ActiveRecord::Base
   validates :rookie_year, presence: true, numericality: {only_integer: true}
 
 
-def self.get_playerstats(game)
-  #search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
-  #boxscore_link = URI(search_string)
-  #boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
-  player_info = Curl.get("http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0")
-  boxscore = JSON.parse(player_info.body)
-  player_game_info = boxscore["resultSets"][0]["rowSet"]
-  player_game_info.each do |player|
-    checkplayer(player[4])
+  def self.get_playerstats(game)
+    #search_string ="http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0"
+    #boxscore_link = URI(search_string)
+    #boxscore = JSON.parse(Net::HTTP.get(boxscore_link))
+    player_info = Curl.get("http://stats.nba.com/stats/boxscoretraditionalv2?EndPeriod=10&EndRange=28800&GameID=#{game}&RangeType=2&StartPeriod=1&StartRange=0")
+    boxscore = JSON.parse(player_info.body)
+    player_game_info = boxscore["resultSets"][0]["rowSet"]
+    player_game_info.each do |player|
+      checkplayer(player[4])
+    end
+    Statistic.insert_player_stats(player_game_info)
   end
-  Statistic.insert_player_stats(player_game_info)
-end
+
+  def self.qualified
+    select(:id).joins(:statistics).group("players.id").having("count(statistics.*) > ? AND avg(statistics.time_played) > ?", Game.qualify, 1200)
+  end
+
+
 
   private 
 		def self.checkplayer(player_id)

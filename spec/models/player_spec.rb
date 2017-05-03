@@ -35,4 +35,13 @@ RSpec.describe Player, type: :model do
       expect(Player.first.rookie_year).to eq(2002)
     end
   end
+
+  context "Testing methoods on the player model" do
+
+    before { system 'psql -d nba_test -f spec/dumps/query_data_source.sql' }
+
+    scenario "Finding the leaderboard qualified players works" do
+      expect(Player.qualified.length).to eq 210
+    end
+  end
 end
