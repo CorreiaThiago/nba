@@ -16,6 +16,10 @@ RSpec.describe Statistic, type: :model do
 		expect(Statistic.averages("frees")).to be_within(0.001).of(76.07)
 	end
 
+	scenario "The number of players qualified for leader board should work" do
+		expect(Statistic.qualified.length).to eq 210
+	end
+
 	context "Calculating a players information" do
 
 		let(:otto) {Player.first.statistics}

@@ -53,6 +53,11 @@ class Statistic < ActiveRecord::Base
     minutes_played
   end 
 
+  def self.qualified
+    select(:player_id).group(:player_id).having("count(*) > ? AND avg(time_played) > ?", Game.qualify, 1200)
+  end
+
+
 
   protected
 
